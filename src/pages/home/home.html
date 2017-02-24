@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-navbar color="purple">
+  <ion-buttons start>
+      <button ion-button color="dark" (click)="addWeather()">Add</button>
+    </ion-buttons>
+    <ion-title>
+      Weather
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+	<ion-list>
+      <weather
+        [weather]="localWeather"
+        (viewMore)="viewForecast($event)">
+      </weather>
+
+      <weather
+        *ngFor="let cityWeather of WeatherList"
+        [weather]="cityWeather"
+        (viewMore)="viewForecast($event)">
+      </weather>
+
+    </ion-list>
+
+</ion-content>
