@@ -28,6 +28,7 @@ export class AddWeatherPage {
   closeModal(){
     this.viewCtrl.dismiss();
   }
+  
   dismiss(data){
   	this.viewCtrl.dismiss(this.data); 
   }

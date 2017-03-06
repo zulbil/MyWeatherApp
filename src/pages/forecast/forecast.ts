@@ -13,6 +13,7 @@ import { Weather } from '../../providers/weather';
   templateUrl: 'forecast.html'
 })
 export class ForecastPage {
+  myColor: string = "purple";
 	public forecast = []; 
 	cityWeather: any; 
   constructor(public navCtrl: NavController, public navParams: NavParams, public weatherService: Weather) {

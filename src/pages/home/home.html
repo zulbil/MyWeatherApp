@@ -1,27 +1,37 @@
 <ion-header>
   <ion-navbar color="purple">
-  <ion-buttons start>
-      <button ion-button color="dark" (click)="addWeather()">Add</button>
+  <ion-buttons end>
+      <button ion-button color="dark" (click)="addWeather()"><ion-icon name="add-circle"></ion-icon></button>
+      <button ion-button color="dark" (click)="more($event)"><ion-icon name="more"></ion-icon></button>
     </ion-buttons>
-    <ion-title>
+    <ion-title left>
       Weather
     </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-	<ion-list>
+<ion-content class="back">
+ <ion-fab top right edge style="padding: 25px;">
+    <button ion-fab color="purple" mini><ion-icon name="md-share"></ion-icon></button>
+    <ion-fab-list>
+      <button ion-fab><ion-icon color="primary" name="logo-facebook" (click)="sharebyFacebook()"></ion-icon></button>
+      <button ion-fab><ion-icon name="logo-twitter" (click)="sharebyTwitter()"></ion-icon></button>
+      <button ion-fab><ion-icon style="color: #008000" name="logo-whatsapp" (click)="sharebyWhatsapp()"></ion-icon></button>
+      <button ion-fab><ion-icon color="danger" name="logo-googleplus"></ion-icon></button>
+    </ion-fab-list>
+  </ion-fab>
+	<ion-slides>
       <weather
         [weather]="localWeather"
         (viewMore)="viewForecast($event)">
       </weather>
 
       <weather
-        *ngFor="let cityWeather of WeatherList"
+        *ngFor="let cityWeather of slides"
         [weather]="cityWeather"
         (viewMore)="viewForecast($event)">
       </weather>
 
-    </ion-list>
+    </ion-slides>
 
 </ion-content>

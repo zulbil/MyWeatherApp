@@ -18,17 +18,14 @@
 
 <ion-content padding>
 	<ion-list>
+      <p>Enter the city's name and the country's name, after that you can press the Add Weather Button</p>
       <ion-item>
         <ion-label stacked> City </ion-label>
         <ion-input type="text" [(ngModel)]="data.city"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label stacked> Country </ion-label>
-        <ion-select [(ngModel)]="data.country">
-          <ion-option value="united states">United States</ion-option>
-          <ion-option value="united kingdom">United Kingdom</ion-option>
-          <ion-option value="france">France</ion-option>
-        </ion-select>
+        <ion-input type="text" [(ngModel)]="data.country"></ion-input>
       </ion-item>
       <div padding>
         <button ion-button block [color]="myColor" [round]="isRound" (click)="dismiss()">Add Weather</button>

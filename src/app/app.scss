@@ -14,3 +14,39 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+@import 'leaflet';
+
+.ios, .md {
+
+
+    ion-content {
+      font-family: "Calibri";
+      h6 {
+        font-size: small;
+      }
+
+      .mainweather {
+        font-size: 40px;
+        padding-top: 30px;
+        color: #ba9d37;
+      }
+
+    }
+    .back {
+      background-image: url('../../assets/img/world.jpg');
+      -webkit-background-image: url('../../assets/img/world.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+
+    }
+
+    .slide-image {
+      height: 80%;
+      width: 100%;
+      margin: 18px 0;
+      position: relative;
+    }
+ 
+ }
+  

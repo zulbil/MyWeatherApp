@@ -1,9 +1,44 @@
-<ion-item *ngIf="weather" (click)="hitWeather(weather)">
-        <ion-thumbnail item-left>
-          <img src="http://openweathermap.org/img/w/{{weather.weather[0].icon}}.png"/>
-        </ion-thumbnail>
-        <h2>{{weather.main.temp | convertTemperature }}</h2>
-        <h3>{{weather.name}}</h3>
-        <p>Low: {{weather.main.temp_min| convertTemperature}} High: {{weather.main.temp_max|convertTemperature}} </p>
-        <ion-icon name="arrow-forward" item-right></ion-icon>
-</ion-item>
+<ion-slide *ngIf="weather" (click)="hitWeather(weather)">
+
+  <ion-icon name="pin"></ion-icon><h3 style="color: #ba9d37">{{weather.name}}</h3>
+
+   <ion-grid>
+        <ion-row>
+          <ion-col width-33><h6>Location: {{weather.name}}</h6></ion-col>
+          <ion-col> <h6>Last update: {{date}}</h6></ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col width-50>
+              <img class="slide-image" src="http://openweathermap.org/img/w/{{weather.weather[0].icon}}.png"/>
+            </ion-col>
+             <ion-col width-50>
+               <h2 class="mainweather">{{weather.main.temp | convertTemperature }}</h2>
+               <h6>{{weather.main.temp_min| convertTemperature}} /{{weather.main.temp_max|convertTemperature}}</h6>
+               <h5>{{weather.weather[0].description}}</h5>
+               <h6 class="pressure">Pressure: {{weather.main.pressure}} hPa</h6>
+             </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col width-50>
+            <h6>Humidity: {{weather.main.humidity}} %</h6>
+            <h6>Wind Speed: {{weather.wind.speed}} m/s</h6>
+            <h6>Wind Degree: {{weather.wind.deg}} °</h6>
+          </ion-col>
+          <ion-col width-50>
+            <ion-icon name="partly-sunny"></ion-icon>
+            <h6>Sunrise: {{weather.sys.sunrise | date:'shortTime'}}</h6>
+            <ion-icon name="cloudy-night"></ion-icon>
+            <h6>Sunset: {{weather.sys.sunset | date:'shortTime'}} </h6>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+
+        </ion-row>
+   </ion-grid>
+
+
+
+
+
+
+</ion-slide>

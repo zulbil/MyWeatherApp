@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
 import { Weather } from '../../providers/weather';
 import { AddWeatherPage } from '../add-weather/add-weather';
-import { NavController, ModalController } from 'ionic-angular';
+import { NavController, ModalController, PopoverController, AlertController } from 'ionic-angular';
 import {ForecastPage} from '../forecast/forecast';
-import { WeatherComponent } from '../../components/weather/weather';
+import { TaskPage } from '../task/task';
 import { StorageService } from '../../providers/storage-service';
+import { SocialSharing } from 'ionic-native';
+import Moment from 'moment';
+
 
 
 @Component({
@@ -12,16 +15,25 @@ import { StorageService } from '../../providers/storage-service';
   templateUrl: 'home.html'
 })
 export class HomePage {
-	public WeatherList = [];
+	public slides = [];
   public localWeather;
+  public myColor: string = "purple";
+  public date: string;
 
   constructor(public navCtrl: NavController, public weatherService: Weather,
-    public mdlCtrl: ModalController, public storageService: StorageService) {
+    public mdlCtrl: ModalController, public storageService: StorageService,
+    public propoverCtrl:PopoverController, public alrtCtrl:AlertController) {
     this.getLocalWeather();
     this.getStoredWeather();
+    this.getCurrentDate();
   }
 
   ionViewDidLoad(){
+  }
+
+  getCurrentDate(){
+    this.date = Moment().format('LLL');
+    return this.date;
   }
 
   addWeather(){
@@ -31,7 +43,7 @@ export class HomePage {
   		if(data){
   			this.getWeather(data.city, data.country);
   		}
-      console.log(this.WeatherList);
+      console.log(this.slides);
   	})
 
   	modal.present();
@@ -42,7 +54,7 @@ export class HomePage {
   		.map(data => data.json())
   		.subscribe((data) => {
         console.log(data);
-  			this.WeatherList.push(data);
+  			this.slides.push(data);
         this.storageService.setWeathers(data);
   		},
   			err => console.log(err)
@@ -63,12 +75,47 @@ export class HomePage {
 
   getStoredWeather(){
     this.storageService.getWeathers().then((weathers) => {
-      this.WeatherList = JSON.parse(weathers) || [];
+      this.slides = JSON.parse(weathers) || [];
     })
   }
 
-  removeStoredWeather(weather) {
-    this.storageService.deleteWeather(weather);
-    this.getStoredWeather();
+
+
+  more(event){
+    let popover = this.propoverCtrl.create(TaskPage);
+    popover.present({ ev: event});
+  }
+
+  sharebyFacebook(){
+    SocialSharing.shareViaFacebook("test","test","https://www.joshmorony.com/").then(() =>
+    {
+        this.showAlert();
+    }).catch((err) => {
+      console.log(err);
+    });
+  }
+
+  sharebyTwitter(){
+    SocialSharing.shareViaTwitter("test","test","https://www.joshmorony.com/").then( () => {
+        this.showAlert();
+    }).catch((err) => {
+      console.log(err);
+    })
+  }
+
+  sharebyWhatsapp(){
+    SocialSharing.shareViaWhatsApp("test","test","https://www.joshmorony.com/").then(() => {
+        this.showAlert();
+    }).catch((err) => {
+      console.log(err);
+    })
+  }
+
+  showAlert() {
+    let alert = this.alrtCtrl.create({
+      title: 'Success!',
+      subTitle: 'You share something!'
+    });
+    alert.present();
   }
 }

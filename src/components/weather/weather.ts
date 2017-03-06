@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import Moment from 'moment';
 
 /*
   Generated class for the Weather component.
@@ -12,15 +13,17 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 })
 export class WeatherComponent {
 
-  @Input() weather: Object; 
-  @Output() viewMore: EventEmitter<Object> = new EventEmitter(); 
+  @Input() weather: Object;
+  @Output() viewMore: EventEmitter<Object> = new EventEmitter();
+  public date : string;
 
   constructor() {
     console.log('Hello Weather Component');
+    this.date = Moment().format('LLL');
   }
 
   hitWeather(){
-    this.viewMore.next(this.weather); 
+    this.viewMore.next(this.weather);
   }
 
 }

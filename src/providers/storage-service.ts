@@ -11,7 +11,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class StorageService {
 	private storageDB ="weatherStorage";
-	private weathers: Array<Object>;
+	private weathers: Array<Object> ;
 
   constructor(public storage: Storage) {
     this.storage = new Storage(['sqlite', 'websql', 'indexeddb'], {name: this.storageDB});
@@ -34,10 +34,16 @@ export class StorageService {
   	this.storage.set(this.storageDB, JSON.stringify(this.weathers));
   }
 
-  deleteWeather(weather){
-    this.storage.remove(weather).then((weather) => {
-      console.log(weather +" is deleted successfully");
-    });
+  removeWeather(key:string){
+    for (var i=0; i<this.weathers.length; i++){
+      if(this.weathers[i] == key) {
+        this.weathers.splice(i, 1);
+        this.storage.remove(key);
+      }
+        
+    } 
+    this.storage.set(this.storageDB, JSON.stringify(this.weathers));
+   
   }
 
 }
