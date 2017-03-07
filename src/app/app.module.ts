@@ -8,10 +8,12 @@ import { MapPage } from '../pages/map/map';
 import { TaskPage } from '../pages/task/task';
 import { ConvertTemperature } from '../pipes/convert-temperature';
 import { Weather } from '../providers/weather';
+import { ConnectivityService } from '../providers/connectivity-service';
 import { StorageService } from '../providers/storage-service';
 import { WeatherComponent } from '../components/weather/weather';
 import { Storage } from '@ionic/storage';
 import { PlacesPage } from '../pages/places/places';
+import { PositionPage } from '../pages/position/position';
 import { SharePage } from '../pages/share/share';
 
 @NgModule({
@@ -23,6 +25,7 @@ import { SharePage } from '../pages/share/share';
     ForecastPage,
     WeatherComponent,
     PlacesPage,
+    PositionPage,
     MapPage,
     SharePage,
     TaskPage
@@ -38,10 +41,11 @@ import { SharePage } from '../pages/share/share';
     ForecastPage,
     TaskPage,
     PlacesPage,
+    PositionPage,
     MapPage,
     SharePage,
     WeatherComponent
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, Weather, StorageService, Storage]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, Weather, StorageService, Storage, ConnectivityService ]
 })
 export class AppModule {}

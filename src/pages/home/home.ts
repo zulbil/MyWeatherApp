@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { Weather } from '../../providers/weather';
 import { AddWeatherPage } from '../add-weather/add-weather';
-import { NavController, ModalController, PopoverController, AlertController } from 'ionic-angular';
+import { NavController, ModalController, PopoverController } from 'ionic-angular';
 import {ForecastPage} from '../forecast/forecast';
 import { TaskPage } from '../task/task';
 import { StorageService } from '../../providers/storage-service';
-import { SocialSharing } from 'ionic-native';
+import { Platform } from 'ionic-angular';
+import { Screenshot, SocialSharing } from 'ionic-native';
 import Moment from 'moment';
 
 
@@ -22,7 +23,7 @@ export class HomePage {
 
   constructor(public navCtrl: NavController, public weatherService: Weather,
     public mdlCtrl: ModalController, public storageService: StorageService,
-    public propoverCtrl:PopoverController, public alrtCtrl:AlertController) {
+    public propoverCtrl:PopoverController, public platform: Platform ) {
     this.getLocalWeather();
     this.getStoredWeather();
     this.getCurrentDate();
@@ -79,43 +80,29 @@ export class HomePage {
     })
   }
 
-
+  share(){
+    this.platform.ready().then(() => {
+      Screenshot.URI(80)
+        .then((res) => {
+            console.log(res);
+            SocialSharing.share("Weather Information","Weather from that city", res.URI, null)
+              .then(() => {
+                  
+                },
+                () => {
+                  alert('SocialSharing failed');
+                });
+          },
+          () => {
+            alert('Screenshot failed');
+          });
+    });
+    
+  }
 
   more(event){
     let popover = this.propoverCtrl.create(TaskPage);
     popover.present({ ev: event});
   }
 
-  sharebyFacebook(){
-    SocialSharing.shareViaFacebook("test","test","https://www.joshmorony.com/").then(() =>
-    {
-        this.showAlert();
-    }).catch((err) => {
-      console.log(err);
-    });
-  }
-
-  sharebyTwitter(){
-    SocialSharing.shareViaTwitter("test","test","https://www.joshmorony.com/").then( () => {
-        this.showAlert();
-    }).catch((err) => {
-      console.log(err);
-    })
-  }
-
-  sharebyWhatsapp(){
-    SocialSharing.shareViaWhatsApp("test","test","https://www.joshmorony.com/").then(() => {
-        this.showAlert();
-    }).catch((err) => {
-      console.log(err);
-    })
-  }
-
-  showAlert() {
-    let alert = this.alrtCtrl.create({
-      title: 'Success!',
-      subTitle: 'You share something!'
-    });
-    alert.present();
-  }
 }

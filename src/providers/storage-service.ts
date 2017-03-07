@@ -34,16 +34,15 @@ export class StorageService {
   	this.storage.set(this.storageDB, JSON.stringify(this.weathers));
   }
 
-  removeWeather(key:string){
+  removeWeather(weather: string){
     for (var i=0; i<this.weathers.length; i++){
-      if(this.weathers[i] == key) {
+      if(this.weathers[i] == weather) {
         this.weathers.splice(i, 1);
-        this.storage.remove(key);
+        this.storage.remove('weather');
       }
-        
-    } 
-    this.storage.set(this.storageDB, JSON.stringify(this.weathers));
-   
+
+    }
+
   }
 
 }
